@@ -1,0 +1,25 @@
+# Ignore Python virtual environment
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pytest_cache/
+
+# Ignore Node.js dependencies
+frontend/node_modules/
+
+# Ignore frontend build output
+frontend/dist/ # Default output folder for Vite
+
+# Ignore development-specific files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Ignore saved model files if they are very large and you plan to regenerate them
+# If your model files are manageable or essential for others to download, you might remove these lines.
+# model/
+# *.pkl
+
+# Ignore environment variables files if you use them (e.g. .env)
+#.env
