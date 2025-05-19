@@ -1,18 +1,18 @@
 // src/App.jsx
-"use client"; // Keep this directive if you plan to use frameworks like Next.js later, otherwise optional.
+"use client";
 
 import React, { useState } from "react";
-import styles from "./App.css"; 
-import Header from "./components/Header"; 
-import MovieLinkInput from "./components/MovieLinkInput"; 
-import UserReviews from "./components/UserReviews"; 
+import "./App.css";
+import Header from "./components/Header";
+import MovieLinkInput from "./components/MovieLinkInput";
+import UserReviews from "./components/UserReviews";
 import ResultsSection from "./components/ResultsSection";
 
 function App() {
   const [movieLink, setMovieLink] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisResults, setAnalysisResults] = useState(null); // State to store the results from the backend
-  const [error, setError] = useState(null); // State for error messages
+  const [analysisResults, setAnalysisResults] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleAnalyze = async () => {
     if (!movieLink.trim()) {
@@ -21,8 +21,8 @@ function App() {
     }
 
     setIsAnalyzing(true);
-    setAnalysisResults(null); // Clear previous results
-    setError(null); // Clear previous errors
+    setAnalysisResults(null);
+    setError(null);
 
     try {
       // Make the API call to Flask backend analyze endpoint
@@ -63,19 +63,18 @@ function App() {
       const negativeCount = analysisResults.reviews.filter(review => review.sentiment === 'Negative').length;
       if (positiveCount > negativeCount) return 'Mostly Positive';
       if (negativeCount > positiveCount) return 'Mostly Negative';
-      if (positiveCount + negativeCount > 0) return 'Neutral';
+      if (positiveCount + negativeCount > 0) return 'Neutral'; // Should this be 'Mixed' if counts are equal/similar?
       return 'N/A';
   };
 
-   const getAverageStarRating = () => {
-       if (!analysisResults || !analysisResults.reviews || analysisResults.reviews.length === 0) {
-           return '0'; // Default rating
-       }
-       const totalStars = analysisResults.reviews.reduce((sum, review) => sum + review.star_rating, 0);
-       const average = totalStars / analysisResults.reviews.length;
-       // Round to one decimal place if needed, or return integer
-       return Math.round(average * 10) / 10;
-   };
+  const getAverageStarRating = () => {
+      if (!analysisResults || !analysisResults.reviews || analysisResults.reviews.length === 0) {
+          return '0'; // Default rating
+      }
+      const totalStars = analysisResults.reviews.reduce((sum, review) => sum + review.star_rating, 0);
+      const average = totalStars / analysisResults.reviews.length;
+      return Math.round(average * 10) / 10;
+  };
 
 
   // --- Pass individual review data to UserReviews ---
@@ -83,7 +82,8 @@ function App() {
 
 
   return (
-    <main className={styles.mainContainer}>
+    // FIX: Changed className={styles.mainContainer} to className="mainContainer"
+    <main className="mainContainer">
       <Header />
       <MovieLinkInput
         movieLink={movieLink}
@@ -108,14 +108,13 @@ function App() {
 
 
       {/* Pass reviews data to UserReviews */}
-      <UserReviews reviewsData={reviewsForDisplay} /> {/* Pass the list of reviews */}
+      <UserReviews reviewsData={reviewsForDisplay} />
 
       {/* Pass results summary data to ResultsSection */}
       <ResultsSection
           movieTitle={getMovieTitle()}
           overallSentiment={getOverallSentiment()}
           averageStarRating={getAverageStarRating()}
-          // summaryText={analysisResults?.summary || "Summary not available."}
       />
 
     </main>
