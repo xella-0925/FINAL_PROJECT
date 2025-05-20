@@ -13,9 +13,13 @@ function ResultsSection() {
       <p className="resultSummary">  
         (Summary here) "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       </p>
-      <div className="starsContainer">  
-        <h3 className="starsTitle">Total Stars</h3>  
-        <div className="starsDisplay" aria-label="0 out of 5 stars">☆☆☆☆☆</div>  
+      <div className="starsContainer">
+        <h3 className="starsTitle">Total Stars</h3>
+        <div className="starsDisplay" aria-label={`${averageStarRating} out of 5 stars`}>
+            {Array.from({ length: 5 }, (_, i) => (
+                <span key={i}>{i < averageStarRating ? '★' : '☆'}</span>
+            ))}
+        </div>
       </div>
     </section>
   );

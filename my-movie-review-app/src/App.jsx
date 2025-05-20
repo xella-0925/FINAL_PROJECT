@@ -20,6 +20,10 @@ function App() {
       return;
     }
 
+    if (!movieLink.startsWith("https://www.metacritic.com/movie/")) {
+      setError("Please enter a valid Metacritic movie user review link.");
+      return;
+    }
     setIsAnalyzing(true);
     setAnalysisResults(null);
     setError(null);
@@ -42,14 +46,14 @@ function App() {
       }
 
       const data = await response.json();
-      setAnalysisResults(data); // Store the received data { title, reviews: [...] }
+      setAnalysisResults(data);
 
     } catch (error) {
       console.error('Error analyzing movie link:', error);
       // Display a user-friendly error message
       setError(`Failed to analyze link: ${error.message || error}`);
     } finally {
-      setIsAnalyzing(false); // Stop loading
+      setIsAnalyzing(false);
     }
   };
 
@@ -63,7 +67,7 @@ function App() {
       const negativeCount = analysisResults.reviews.filter(review => review.sentiment === 'Negative').length;
       if (positiveCount > negativeCount) return 'Mostly Positive';
       if (negativeCount > positiveCount) return 'Mostly Negative';
-      if (positiveCount + negativeCount > 0) return 'Neutral'; // Should this be 'Mixed' if counts are equal/similar?
+      if (positiveCount + negativeCount > 0) return 'Neutral';
       return 'N/A';
   };
 
@@ -82,7 +86,6 @@ function App() {
 
 
   return (
-    // FIX: Changed className={styles.mainContainer} to className="mainContainer"
     <main className="mainContainer">
       <Header />
       <MovieLinkInput
@@ -107,15 +110,26 @@ function App() {
        )}
 
 
-      {/* Pass reviews data to UserReviews */}
-      <UserReviews reviewsData={reviewsForDisplay} />
+      {!isAnalyzing && !error && analysisResults && (
+        <>
+          {/* Pass reviews data to UserReviews */}
+          <UserReviews reviewsData={reviewsForDisplay} />
 
-      {/* Pass results summary data to ResultsSection */}
-      <ResultsSection
-          movieTitle={getMovieTitle()}
-          overallSentiment={getOverallSentiment()}
-          averageStarRating={getAverageStarRating()}
-      />
+          {/* Pass results summary data to ResultsSection */}
+          <ResultsSection
+              movieTitle={getMovieTitle()}
+              overallSentiment={getOverallSentiment()}
+              averageStarRating={getAverageStarRating()}
+              summaryText={analysisResults?.summary || ""}
+          />
+        </>
+      )}
+      
+      {!isAnalyzing && !error && !analysisResults && (
+          <div style={{ marginTop: '20px', textAlign: 'center', width: '100%' }}>
+              Enter a movie link above and click "Analyze" to see reviews and predictions.
+          </div>
+      )}
 
     </main>
   );
