@@ -1,11 +1,59 @@
-# CCS 249 FINAL_PROJECT
+# FINAL PROJECT IN CCS 249: Natural Language Processing (NLP)
 
-Submitted by: <br> 
+## 👨‍💻 Submitted by:
+- Els Dave Constantino  
+- Angelika Marie Nava  
+- Reycel Sarmiento  
+- Mariane Faith Torreverde  
 
-Els Dave Constantino<br> Angelika Marie Nava<br> Reycel Sarmiento<br> Mariane Faith Torreverde<br><br> 
 **BSCS 3 - A AI**
+--- 
+##  🎬 What is ReelSense?
 
-**ReelSense** is an intelligent web-based application designed to provide automated sentiment analysis and rating insights for movie reviews. By leveraging advanced Natural Language Processing (NLP) techniques, ReelSense reads and interprets user-generated reviews, converting emotional tone into a clear, 1–5 star rating system. 
+**ReelSense** is an intelligent web-based application designed to provide **automated sentiment analysis** and **rating insights** for movie reviews. 
+<br>It uses advanced **Natural Language Processing (NLP)** to:
 
-It provides a dynamic way to evaluate audience feedback by translating written opinions into a simple 1–5 star system—where positive sentiments shine with higher ratings and negative ones earn fewer stars.This makes it easier than ever to get a quick, meaningful snapshot of audience sentiment. *From opinions to stars—see what shines with ReelSense.* 
+- Extract reviews from Metacritic
+- Read and interpret user-generated review
+- Analyze emotional tone of each review  
+- Predict a 1–5 star rating  
+- Display overall sentiment and individual review ratings in a visual carousel
+
+> _From opinions to stars — see what shines with ReelSense._ ✨
+
+---
+
+## 💡 Why Use ReelSense?
+✅ Saves time in deciding what to watch
+
+✅ Helps understand audience reception at a glance
+
+✅ Useful for viewers, reviewers, and content platforms
+
+---
+
+## 🤔 How to Use ReelSense?
+
+1️⃣ Open the ReelSense app in your browser  
+2️⃣ Paste a Metacritic movie review URL into the input field  
+3️⃣ Click **Analyze**  
+4️⃣ Wait a few seconds for processing  
+5️⃣ View the results:
+- 🎞 Movie title  
+- 📊 Overall sentiment  
+- ⭐ Average rating  
+- 💬 Carousel of reviews with sentiment & stars  
+
+---
+
+## 💻 Behind the Scenes (How It Works)
+
+- Uses **Flask** for the backend API  
+- **Selenium** and **BeautifulSoup** scrape movie reviews from Metacritic  
+- Texts are cleaned and preprocessed with **NLTK**  
+- **TF-IDF Vectorizer** converts text into features  
+- **Logistic Regression model** predicts sentiment  
+- Ratings mapped from probability scores to a 1–5 scale  
+
+---
 
